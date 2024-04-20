@@ -1,0 +1,52 @@
+print('BEM vindo ao jogo da velha criado por Emerson')
+class JogoDaVelha:
+    def __init__(self):
+        self.tabuleiro = [' ' for _ in range(9)]
+        self.jogador_atual = 'X'
+
+    def imprimir_tabuleiro(self):
+        print('  |  '.join(self.tabuleiro[0:3]))
+        print('-------------')
+        print('  |  '.join(self.tabuleiro[3:6]))
+        print('-------------')
+        print('  |  '.join(self.tabuleiro[6:9]))
+
+    def fazer_jogada(self, posicao):
+        if self.tabuleiro[posicao] == ' ':
+            self.tabuleiro[posicao] = self.jogador_atual
+            if self.verificar_vitoria():
+                self.imprimir_tabuleiro()
+                print(f'O jogador {self.jogador_atual} venceu!')
+                return True
+            elif ' ' not in self.tabuleiro:
+                self.imprimir_tabuleiro()
+                print('O jogo terminou em empate!')
+                return True
+            else:
+                self.jogador_atual = 'O' if self.jogador_atual == 'X' else 'X'
+                return False
+        else:
+            print('Posição inválida. Tente novamente. TALVEZ UM JOGADOR JA TENHA ESCOLHIDO ESSA OPÇÃO ')
+            return False
+
+    def verificar_vitoria(self):
+        linhas_vitoria = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ]
+        for linha in linhas_vitoria:
+            if self.tabuleiro[linha[0]] == self.tabuleiro[linha[1]] == self.tabuleiro[linha[2]] != ' ':
+                return True
+        return False
+
+def main():
+    jogo = JogoDaVelha()
+    while True:
+        jogo.imprimir_tabuleiro()
+        posicao = int(input(f'Vez do jogador {jogo.jogador_atual}. Escolha uma posição (0-8): '))
+        if jogo.fazer_jogada(posicao):
+            break
+
+if __name__ == "__main__":
+    main()
