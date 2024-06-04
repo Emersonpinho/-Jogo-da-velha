@@ -1,4 +1,4 @@
-print('BEM vindo ao jogo da velha criado por Emerson')
+print('Bem vindo ao jogo da velha criado por Emerson')
 class JogoDaVelha:
     def __init__(self):
         self.tabuleiro = [' ' for _ in range(9)]
